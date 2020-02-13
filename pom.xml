@@ -19,6 +19,8 @@
         <module>tensquare_qa</module>
         <!--文章微服务-->
         <module>tensquare_article</module>
+        <!--活动微服务-->
+        <module>tensquare_gathering</module>
     </modules>
 
     <packaging>pom</packaging>
