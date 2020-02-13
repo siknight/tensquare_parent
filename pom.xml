@@ -8,8 +8,17 @@
     <artifactId>tensquare_parent</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>tensquare_base</module>
+
+        <!--工具类-->
         <module>tensquare_common</module>
+        <!--列表微服务-->
+        <module>tensquare_base</module>
+        <!--招聘微服务-->
+        <module>tensquare_recruit</module>
+        <!--问答微服务-->
+        <module>tensquare_qa</module>
+        <!--文章微服务-->
+        <module>tensquare_article</module>
     </modules>
 
     <packaging>pom</packaging>
