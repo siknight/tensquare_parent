@@ -90,7 +90,7 @@ public class ArticleService {
 		// 如果缓存没有则到数据库查询并放入缓存
 		if(article==null){
 			article = articleDao.findById(id).get();
-			redisTemplate.opsForValue().set("article_"+id,article,10,TimeUnit.SECONDS);
+			redisTemplate.opsForValue().set("article_"+id,article,1,TimeUnit.DAYS);
 		}
 		return article;
 	}
