@@ -21,6 +21,8 @@
         <module>tensquare_article</module>
         <!--活动微服务-->
         <module>tensquare_gathering</module>
+        <!--吐槽微服务-->
+        <module>tensquare_spit</module>
     </modules>
 
     <packaging>pom</packaging>
