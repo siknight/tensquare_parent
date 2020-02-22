@@ -14,7 +14,43 @@ public class Article {
     //是否存储，就是是否在页面上显示
     //比如整个文章内容是：索引（可以搜着），不分词（整偏文章才能搜着），不存储（因为不在页面显示）
     //titile:索引，分词，存储
-    @Field()
+    @Field(index = true,analyzer = "ik_max_word",searchAnalyzer = "ik_max_word")
     private String title;
 
+    @Field(index = true,analyzer = "ik_max_word",searchAnalyzer = "ik_max_word")
+    private String content;
+
+    private String state;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
 }
