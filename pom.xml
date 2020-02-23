@@ -24,6 +24,9 @@
         <!--吐槽微服务-->
         <module>tensquare_spit</module>
         <module>tensquare_search</module>
+        <module>tensquare-eureka</module>
+        <module>tensquare_friend</module>
+        <module>tensquare_user</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -56,6 +59,19 @@
         </dependency>
     </dependencies>
 
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>Finchley.SR1</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <repositories>
         <repository>
             <id>spring-snapshots</id>
@@ -74,6 +90,8 @@
             </snapshots>
         </repository>
     </repositories>
+
+
 
     <pluginRepositories>
         <pluginRepository>
