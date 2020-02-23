@@ -29,7 +29,29 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	
+
+	/**
+	 * 发送短信
+	 * @param mobile
+	 * @return
+	 */
+	@RequestMapping(value="/sendsms/{mobile}",method=RequestMethod.POST)
+	public Result sendsms(@PathVariable String mobile ){
+		userService.sendSms(mobile);
+		return new Result(true,StatusCode.OK,"发送成功");
+	}
+
+	/**
+	 * 注册 添加用户
+	 * @param user
+	 * @param code
+	 * @return
+	 */
+	@RequestMapping(value="/register/{code}",method=RequestMethod.POST)
+	public Result register( @RequestBody User user ,@PathVariable String code){
+		userService.add(user,code);
+		return new Result(true,StatusCode.OK,"注册成功");
+	}
 	
 	/**
 	 * 查询全部数据

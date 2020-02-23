@@ -1,0 +1,16 @@
+server:
+  port: 9009
+spring:
+  application:
+    name: tensquare-sms
+  rabbitmq:
+    host: 127.0.0.1
+  mail:
+    host: smtp.qq.com 	#邮箱服务器地址
+    username: 1786678583@qq.com  #邮箱账号
+    password: 	#邮箱密码
+    default-encoding: utf-8	#默认编码
+#邮件发件人
+mail:
+  fromMail:
+    addr: 1786678583@qq.com
