@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +30,9 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	BCryptPasswordEncoder encoder;
 
 	/**
 	 * 发送短信
@@ -70,6 +74,24 @@ public class UserController {
 	@RequestMapping(value="/{id}",method= RequestMethod.GET)
 	public Result findById(@PathVariable String id){
 		return new Result(true,StatusCode.OK,"查询成功",userService.findById(id));
+	}
+
+	/**
+	 * 用户登陆
+	 * @param mobile
+	 * @param password
+	 * @return
+	 */
+	@RequestMapping(value="/login",method=RequestMethod.POST)
+	public Result login(String mobile,String password){
+		System.out.println("mobile="+mobile+",password="+password+",加密后="+encoder.encode(password));
+
+		User user = userService.findByMobileAndPassword(mobile,password);
+		if(user!=null){
+			return new Result(true,StatusCode.OK,"登陆成功");
+		}else {
+			return new Result(false,StatusCode.LOGINERROR,"用户名或密码错误");
+		}
 	}
 
 
