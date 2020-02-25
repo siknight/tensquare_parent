@@ -1,7 +1,9 @@
 package com.tensquare.user.controller;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,6 +20,10 @@ import com.tensquare.user.service.UserService;
 import entity.PageResult;
 import entity.Result;
 import entity.StatusCode;
+import util.JwtUtil;
+
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * 控制器层
  * @author Administrator
@@ -33,6 +39,12 @@ public class UserController {
 
 	@Autowired
 	BCryptPasswordEncoder encoder;
+
+	@Autowired
+	private HttpServletRequest request;
+
+	@Autowired
+	private JwtUtil jwtUtil;
 
 	/**
 	 * 发送短信
@@ -85,10 +97,14 @@ public class UserController {
 	@RequestMapping(value="/login",method=RequestMethod.POST)
 	public Result login(String mobile,String password){
 		System.out.println("mobile="+mobile+",password="+password+",加密后="+encoder.encode(password));
-
 		User user = userService.findByMobileAndPassword(mobile,password);
 		if(user!=null){
-			return new Result(true,StatusCode.OK,"登陆成功");
+			String token = jwtUtil.createJWT(user.getId(), user.getNickname(), "user");
+			Map map=new HashMap();
+			map.put("token",token);
+			map.put("name",user.getNickname());//昵称
+			map.put("avatar",user.getAvatar());//头像
+			return new Result(true,StatusCode.OK,"登陆成功",map);
 		}else {
 			return new Result(false,StatusCode.LOGINERROR,"用户名或密码错误");
 		}
@@ -145,6 +161,11 @@ public class UserController {
 	 */
 	@RequestMapping(value="/{id}",method= RequestMethod.DELETE)
 	public Result delete(@PathVariable String id ){
+		Claims claims=(Claims) request.getAttribute("admin_claims");
+		if(claims==null){
+			return new Result(true,StatusCode.ACCESSERROR,"无权访问");
+		}
+
 		userService.deleteById(id);
 		return new Result(true,StatusCode.OK,"删除成功");
 	}

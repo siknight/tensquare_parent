@@ -15,4 +15,9 @@ spring:
     host: 127.0.0.1
   rabbitmq:
     host: 127.0.0.1
+jwt:
+  config:
+    key: itcast
+    ttl: 3600000
+
 #    connection-timeout: Duration.ofMinutes(1)

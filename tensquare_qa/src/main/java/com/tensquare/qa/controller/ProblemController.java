@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.tensquare.qa.client.LabelClient;
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,6 +19,9 @@ import com.tensquare.qa.service.ProblemService;
 import entity.PageResult;
 import entity.Result;
 import entity.StatusCode;
+
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * 控制器层
  * @author Administrator
@@ -33,6 +37,10 @@ public class ProblemController {
 
 	@Autowired
 	private LabelClient labelClient;
+
+
+	@Autowired
+	private HttpServletRequest request;
 
 	/**
 	 * feign查找标签
@@ -95,6 +103,11 @@ public class ProblemController {
 	 */
 	@RequestMapping(method=RequestMethod.POST)
 	public Result add(@RequestBody Problem problem  ){
+		Claims claims=(Claims)request.getAttribute("user_claims");
+		if(claims==null){
+			return new Result(false,StatusCode.ACCESSERROR,"无权访问");
+		}
+		problem.setUserid(claims.getId());   //将用户id查出来
 		problemService.add(problem);
 		return new Result(true,StatusCode.OK,"增加成功");
 	}
