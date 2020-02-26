@@ -21,3 +21,6 @@ jwt:
   config:
     key: itcast
     ttl: 3600000
+feign:   #熔断器 默认是关闭的
+ hystrix:
+    enabled: true;

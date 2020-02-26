@@ -12,17 +12,21 @@
         <module name="tensquare_base" />
         <module name="tensquare_friend" />
         <module name="tensquare_gathering" />
+        <module name="tensquare_manager" />
         <module name="tensquare_qa" />
         <module name="tensquare_recruit" />
         <module name="tensquare_search" />
         <module name="tensquare_sms" />
         <module name="tensquare_spit" />
         <module name="tensquare_user" />
+        <module name="tensquare_web" />
+        <module name="tensquareeureka2" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="eurekaserver" target="1.8" />
       <module name="tensquare-euraka-server" target="1.8" />
+      <module name="tensquare-eureka (1)" target="1.8" />
       <module name="tensquare_eureka" target="1.8" />
     </bytecodeTargetLevel>
   </component>
