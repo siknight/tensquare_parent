@@ -89,6 +89,25 @@ public class UserController {
 	}
 
 	/**
+	 * 跟新粉丝数
+	 * @param userid
+	 * @param x
+	 */
+	@RequestMapping(value="/incfans/{userid}/{x}",method= RequestMethod.POST)
+	public void incFanscount(String userid,int x){
+		userService.incFanscount(userid,x);
+	}
+
+	/**
+	 * 跟新关注数
+	 * @param userid
+	 * @param x
+	 */
+	public void incFollowcount(@PathVariable String userid,@PathVariable int x){
+		userService.incFollowcount(userid,x);
+	}
+
+	/**
 	 * 用户登陆
 	 * @param mobile
 	 * @param password
